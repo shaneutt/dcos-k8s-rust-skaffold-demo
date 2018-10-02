@@ -197,6 +197,13 @@ docker run -p 8000:8000 -d --name rust-web-demo rust-web-demo
 
 Access the demo by navigating to http://localhost:8000.
 
+Clean up the container by running:
+
+```
+docker kill rust-web-demo
+docker rm rust-web-demo
+```
+
 # Step 3 - Deployment with Skaffold
 
 In this step we're going to start using [skaffold][0] to continuously ship updates to our code to our Kubernetes on DC/OS cluster.
