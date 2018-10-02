@@ -1,0 +1,95 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rust-web-demo
+spec:
+  rules:
+  - host: DEMO_DOMAIN
+    http:
+      paths:
+      - backend:
+          serviceName: rust-web-demo
+          servicePort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rust-web-demo
+spec:
+  ports:
+  - port: 80
+    targetPort: 8000
+  selector:
+    app: rust-web-demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust-web-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rust-web-demo
+  template:
+    metadata:
+      labels:
+        app: rust-web-demo
+    spec:
+      containers:
+      - name: rust-web-demo
+        image: docker.io/YOUR_USERNAME/rust-web-demo
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: rust-web-demo-database-url
+              key: url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rust-web-demo-postgres
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+  selector:
+    app: rust-web-demo-postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust-web-demo-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rust-web-demo-postgres
+  template:
+    metadata:
+      labels:
+        app: rust-web-demo-postgres
+    spec:
+      containers:
+      - name: rust-web-demo-postgres
+        image: postgres
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: rust-web-demo
+        - name: POSTGRES_USER
+          value: diesel
+        - name: POSTGRES_PASSWORD
+          value: changeme
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rust-web-demo-database-url
+type: Opaque
+data:
+  url: cG9zdGdyZXM6Ly9kaWVzZWw6Y2hhbmdlbWVAcnVzdC13ZWItZGVtby1wb3N0Z3Jlczo1NDMyL3J1c3Qtd2ViLWRlbW8=

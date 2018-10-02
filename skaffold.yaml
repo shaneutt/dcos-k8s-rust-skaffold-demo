@@ -1,0 +1,17 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  artifacts:
+  - imageName: docker.io/YOUR_USERNAME/rust-web-demo
+    workspace: .
+    docker: {}
+    bazel: null
+  local:
+    skipPush: null
+  googleCloudBuild: null
+  kaniko: null
+deploy:
+  helm: null
+  kubectl:
+    manifests:
+    - skaffold-deployment.yaml

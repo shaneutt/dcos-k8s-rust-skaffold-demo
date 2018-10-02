@@ -1,0 +1,8 @@
+dcos/
+k8s/
+target/
+migrations/
+skaffold.yaml
+skaffold-deployment.yaml
+Cargo.lock
+LICENSE
