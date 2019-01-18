@@ -1,7 +1,5 @@
 ![Kubernetes on DC/OS](https://mesosphere.com/wp-content/uploads/2017/08/kubernetes-dcos-socialtwitter-800x343.png)
 
-**WARNING**: *WORK IN PROGRESS* this demo is under active development and is not ready for general use
-
 # Deploying Rust to Kubernetes on DC/OS with Skaffold
 
 This is a demonstration project for using [Skaffold][0] to pipeline the development of your [Rust][1] web applications to [Kubernetes on DC/OS][2].
