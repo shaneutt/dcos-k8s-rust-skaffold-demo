@@ -1,4 +1,4 @@
-![Kubernetes on DC/OS](https://mesosphere.com/wp-content/uploads/2017/08/kubernetes-dcos-socialtwitter-800x343.png)
+WARNING: this is an archived demo, it was used for CNCF presentations years ago but is no longer actively maintained.
 
 # Deploying Rust to Kubernetes on DC/OS with Skaffold
 
